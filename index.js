@@ -80,6 +80,18 @@ function changeFocus() {
 
 function addDate(date) {
   return new Promise(function(resolve, reject) {
+
+		var today = dateToday()
+		var monthToday = parseInt(today.split("/")[0])
+		var otherMonth = parseInt(date.split("/")[0])
+
+		if (otherMonth > monthToday) {
+			var diff = otherMonth - monthToday
+			for(var i = 0; i < diff; i++) {
+				document.getElementsByClassName('picker__nav--next')[0].click()
+			}
+		}
+
     document
       .getElementById('js--study-group-start-date_root')
       .querySelectorAll('[data-pick]')
@@ -157,6 +169,16 @@ function nextWeek(day, week) {
   return `${month < 10 ? `0${month}` : month}/${
     dayNum < 10 ? `0${dayNum}` : dayNum
   }/${d.getFullYear()}`;
+}
+
+function dateToday() {
+	var d = new Date();
+	var month = d.getMonth() + 1;
+	var dayNum = d.getDate();
+	
+	return `${month < 10 ? `0${month}` : month}/${
+		dayNum < 10 ? `0${dayNum}` : dayNum
+	}/${d.getFullYear()}`
 }
 
 function init() {
