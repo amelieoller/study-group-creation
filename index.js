@@ -164,10 +164,15 @@ function init() {
     var title = sg.title;
     var description = sg.description;
     var time = sg.time.toLowerCase();
-		// weeksArray will return [2,3,4,5] for weekToStart being 2 and weekToEnd being 5
-		var weeksArray = Array.from({ length: weekToEnd === 1 ? 1 : weekToEnd  - 1 }, (v, k) => k + weekToStart);
+		
+		// range will return [2,3,4,5] for weekToStart being 2 and weekToEnd being 5
+		function* range(weekToStart, weekToEnd) {
+			yield weekToStart; 
+			if (weekToStart === weekToEnd) return;
+			yield* range(weekToStart + 1, weekToEnd);
+		}
 
-    weeksArray.map(week => {
+    [...range(sg.weekToStart, sg.weekToEnd)].map(week => {
       openModal()
         .then(addTitle(title))
         .then(addDescription(description))
@@ -185,3 +190,5 @@ function init() {
     });
   });
 }
+
+init()
