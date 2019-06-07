@@ -165,7 +165,7 @@ function init() {
     var description = sg.description;
     var time = sg.time.toLowerCase();
 		// weeksArray will return [2,3,4,5] for weekToStart being 2 and weekToEnd being 5
-    var weeksArray = Array.from({ length: sg.weekToEnd - 1 }, (v, k) => k + sg.weekToStart);
+		var weeksArray = Array.from({ length: weekToEnd === 1 ? 1 : weekToEnd  - 1 }, (v, k) => k + weekToStart);
 
     weeksArray.map(week => {
       openModal()
