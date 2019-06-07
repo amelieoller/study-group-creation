@@ -1,3 +1,5 @@
+// Week 1 is the upcoming week
+
 var sgData = [
   {
     categories: ['Intro to Ruby Development', 'HTML Basics'],
@@ -5,15 +7,8 @@ var sgData = [
     description: 'Come join.',
     day: 'Saturday',
     time: '10:30 AM',
-    name: 'Amelie',
-    zoom: 'https://wework.zoom.us/my/amelie'
-  },
-  {
-    categories: ['Intro to Ruby Development', 'HTML Basics'],
-    title: 'Office Hours 2',
-    description: 'Come join.',
-    day: 'Monday',
-    time: '10:30 AM',
+    weekToStart: 2,
+    weekToEnd: 4,
     name: 'Amelie',
     zoom: 'https://wework.zoom.us/my/amelie'
   }
@@ -139,7 +134,7 @@ function closeModal() {
   });
 }
 
-function nextWeek(day) {
+function nextWeek(day, week) {
   var d = new Date();
   var dates = {
     Monday: 0,
@@ -149,9 +144,11 @@ function nextWeek(day) {
     Friday: 4,
     Saturday: 5,
     Sunday: 6
-  };
+	};
+	
+	var weekDay = 7 * week
 
-  d.setDate(d.getDate() + ((1 + 7 - d.getDay()) % 7));
+  d.setDate(d.getDate() + ((1 + weekDay - d.getDay()) % weekDay));
   d.setDate(d.getDate() + dates[day]);
 
   var month = d.getMonth() + 1;
@@ -166,21 +163,25 @@ function init() {
   sgData.forEach(sg => {
     var title = sg.title;
     var description = sg.description;
-
     var time = sg.time.toLowerCase();
-    openModal()
-      .then(addTitle(title))
-      .then(addDescription(description))
-      .then(removeExistingCat())
-      .then(changeFocus())
-      .then(addNewCat(sg.categories))
-      .then(changeFocus())
-      .then(addDate(nextWeek(sg.day)))
-      .then(addTime(time.slice(0, time.length - 1) + '.m.'))
-      .then(duration())
-      .then(addZoomUrl(sg.zoom))
-      .then(submit())
-      .then(closeModal())
-      .then(console.log(`Successfully created: ${sg.title}`));
+		// weeksArray will return [2,3,4,5] for weekToStart being 2 and weekToEnd being 5
+    var weeksArray = Array.from({ length: sg.weekToEnd - 1 }, (v, k) => k + sg.weekToStart);
+
+    weeksArray.map(week => {
+      openModal()
+        .then(addTitle(title))
+        .then(addDescription(description))
+        .then(removeExistingCat())
+        .then(changeFocus())
+        .then(addNewCat(sg.categories))
+        .then(changeFocus())
+        .then(addDate(nextWeek(sg.day, week)))
+        .then(addTime(time.slice(0, time.length - 1) + '.m.'))
+        .then(duration())
+        .then(addZoomUrl(sg.zoom))
+        .then(submit())
+        .then(closeModal())
+        .then(console.log(`Successfully created: ${sg.title}`));
+    });
   });
 }
