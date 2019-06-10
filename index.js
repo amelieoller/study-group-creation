@@ -117,10 +117,11 @@ const calculateDate = (day, week) => {
 		Sunday: 6
 	};
 
-	const weekDay = 7 * week;
-
-	d.setDate(d.getDate() + ((1 + weekDay - d.getDay()) % weekDay));
+	// Set date to correct day
 	d.setDate(d.getDate() + dates[day]);
+
+	// Add weeks
+	d.setDate(d.getDate() + (7 * week));
 
 	return getFormattedDate(d);
 };
