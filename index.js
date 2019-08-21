@@ -14,7 +14,8 @@ var sgData = [
 		weekToStart: 1,
 		weekToEnd: 1,
 		zoom: 'https://wework.zoom.us/my/amelie',
-		// duration: 0.5 Optional 
+		//Optional
+		// duration: 0.5  
 	},
 	{
 		categories: ['Intro to Ruby Development', 'Ruby'],
@@ -25,7 +26,8 @@ var sgData = [
 		weekToStart: 4,
 		weekToEnd: 7,
 		zoom: 'https://wework.zoom.us/my/amelie',
-		// duration: 1 Optional 
+		//Optional
+		// duration: 1  
 	}
 ];
 
