@@ -101,7 +101,7 @@ const addTime = async time => {
 		});
 };
 
-const addDuration = async (duration) => (firstByName('duration').value = duration);
+const addDuration = async (duration = 1) => (firstByName('duration').value = duration);
 
 const addZoomUrl = async url =>
 	(firstByName('study_group[custom_room_url]').value = url);
