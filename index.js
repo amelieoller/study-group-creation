@@ -13,7 +13,9 @@ var sgData = [
 		time: '10:30 am',
 		weekToStart: 1,
 		weekToEnd: 1,
-		zoom: 'https://wework.zoom.us/my/amelie'
+		zoom: 'https://wework.zoom.us/my/amelie',
+		//Optional
+		// duration: 0.5  
 	},
 	{
 		categories: ['Intro to Ruby Development', 'Ruby'],
@@ -23,7 +25,9 @@ var sgData = [
 		time: '06:00 PM',
 		weekToStart: 4,
 		weekToEnd: 7,
-		zoom: 'https://wework.zoom.us/my/amelie'
+		zoom: 'https://wework.zoom.us/my/amelie',
+		//Optional
+		// duration: 1  
 	}
 ];
 
@@ -99,7 +103,7 @@ const addTime = async time => {
 		});
 };
 
-const addDuration = async () => (firstByName('duration').value = 1);
+const addDuration = async (duration = 1) => (firstByName('duration').value = duration);
 
 const addZoomUrl = async url =>
 	(firstByName('study_group[custom_room_url]').value = url);
@@ -187,7 +191,7 @@ const init = async () => {
 			await changeFocus();
 			await addDate(calculateDate(sg.day, week));
 			await addTime(formattedTime);
-			await addDuration();
+			await addDuration(sg.duration);
 			await addZoomUrl(sg.zoom);
 			await submit();
 			await closeModal();
